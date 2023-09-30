@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/meshes/env_wheel.tres" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/meshes/env_truck_glass.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://assets/meshes/env_truck_cab.tres" type="ArrayMesh" id=3]
+[ext_resource path="res://assets/meshes/env_truck_rear.tres" type="ArrayMesh" id=4]
+
+[node name="Truck" type="Spatial"]
+
+[node name="Cab" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.128374, 0 )
+mesh = ExtResource( 3 )
+
+[node name="Storage" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.128374, 0 )
+mesh = ExtResource( 4 )
+
+[node name="Wheels" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.128374, 0 )
+mesh = ExtResource( 1 )
+
+[node name="Glass" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.128374, 0 )
+mesh = ExtResource( 2 )

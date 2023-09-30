@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/meshes/env_street_straight_1u.tres" type="ArrayMesh" id=1]
+
+[node name="StreetStraight" type="StaticBody"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
