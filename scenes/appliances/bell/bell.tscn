@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/sfx/bell.wav" type="AudioStream" id=1]
+[ext_resource path="res://scenes/appliances/bell/bell.gd" type="Script" id=2]
+[ext_resource path="res://assets/meshes/env_app_bell.tres" type="ArrayMesh" id=3]
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "activate"
+length = 0.3
+tracks/0/type = "method"
+tracks/0/path = NodePath("BellSfx")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1.2, 1.2, 1.2 ), Vector3( 1, 1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("CPUParticles")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.3
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+
+[sub_resource type="PrismMesh" id=4]
+material = SubResource( 6 )
+size = Vector3( 0.025, 0.025, 0.025 )
+
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
+
+[node name="Bell" type="StaticBody"]
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/activate = SubResource( 2 )
+
+[node name="BellSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = ExtResource( 3 )
+
+[node name="CPUParticles" type="CPUParticles" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+mesh = SubResource( 4 )
+direction = Vector3( 0, 1, 0 )
+spread = 90.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 3.0
+color_ramp = SubResource( 5 )
+
+[connection signal="input_event" from="." to="." method="_on_Bell_input_event"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

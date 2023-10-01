@@ -9,13 +9,61 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "StaticBody",
-"class": "Placeable",
+"base": "Object",
+"class": "Action",
 "language": "GDScript",
-"path": "res://scripts/placeable.gd"
+"path": "res://scripts/actions/action.gd"
+}, {
+"base": "Action",
+"class": "BasicAction",
+"language": "GDScript",
+"path": "res://scripts/actions/basic.gd"
+}, {
+"base": "Action",
+"class": "CutAction",
+"language": "GDScript",
+"path": "res://scripts/actions/cut.gd"
+}, {
+"base": "Resource",
+"class": "Ingredient",
+"language": "GDScript",
+"path": "res://scripts/resources/ingredient.gd"
+}, {
+"base": "Object",
+"class": "Meal",
+"language": "GDScript",
+"path": "res://scripts/logic/meal.gd"
+}, {
+"base": "Action",
+"class": "PlaceAction",
+"language": "GDScript",
+"path": "res://scripts/actions/place.gd"
+}, {
+"base": "Resource",
+"class": "Recipe",
+"language": "GDScript",
+"path": "res://scripts/resources/recipe.gd"
+}, {
+"base": "StaticBody",
+"class": "Station",
+"language": "GDScript",
+"path": "res://scripts/station.gd"
+}, {
+"base": "Action",
+"class": "TakeAction",
+"language": "GDScript",
+"path": "res://scripts/actions/take.gd"
 } ]
 _global_script_class_icons={
-"Placeable": ""
+"Action": "",
+"BasicAction": "",
+"CutAction": "",
+"Ingredient": "",
+"Meal": "",
+"PlaceAction": "",
+"Recipe": "",
+"Station": "",
+"TakeAction": ""
 }
 
 [application]
@@ -24,12 +72,14 @@ config/name="ludum-dare-54"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Game="*res://scripts/game.gd"
+
 [display]
 
 window/size/width=948
 window/size/height=533
-window/size/test_width=1896
-window/size/test_height=1066
 
 [gui]
 
@@ -57,24 +107,14 @@ move_back={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":83,"unicode":0,"echo":false,"script":null)
  ]
 }
-item_pickup={
+activate={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
-item_place={
+debug={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
- ]
-}
-item_rotate={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":82,"unicode":0,"echo":false,"script":null)
- ]
-}
-item_swap={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":70,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":88,"unicode":0,"echo":false,"script":null)
  ]
 }
 
@@ -84,6 +124,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/fallback_to_gles2=true
 quality/filters/msaa=3
 quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"
