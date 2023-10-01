@@ -46,10 +46,8 @@ radius = 0.04
 height = 0.08
 rings = 12
 
-[node name="Oven" type="StaticBody" groups=["stations"]]
+[node name="Oven" type="StaticBody"]
 script = ExtResource( 6 )
-key = "oven"
-target_position = NodePath("Position3D")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0 )

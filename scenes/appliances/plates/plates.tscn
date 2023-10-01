@@ -8,10 +8,8 @@
 height = 0.4
 radius = 0.3
 
-[node name="Plates" type="StaticBody" groups=["stations"]]
+[node name="Plates" type="StaticBody"]
 script = ExtResource( 2 )
-key = "plates"
-target_position = NodePath("Position3D")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28, 0 )

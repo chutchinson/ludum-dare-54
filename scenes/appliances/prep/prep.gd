@@ -1,10 +1,9 @@
 extends Station
 
-const CUT = preload('res://scripts/actions/cut.gd')
+func inspect(chef: Chef):
+	Game.inspect('prep vegetals')
+	pass
 
-func _activate():
+func activate(chef: Chef):
 	print('prep')
-	_show_options([
-		CUT.new('Cut Lettuce'),
-		CUT.new('Cut Tomato')
-	])
+	

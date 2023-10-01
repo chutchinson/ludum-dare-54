@@ -1,20 +1,24 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/meshes/env_app_fridge.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://assets/meshes/env_app_fridge_door_l.tres" type="ArrayMesh" id=2]
 [ext_resource path="res://assets/meshes/env_app_fridge_door_r.tres" type="ArrayMesh" id=3]
-[ext_resource path="res://scenes/appliances/fridge/fridge.gd" type="Script" id=4]
+[ext_resource path="res://scenes/appliances/fridge/produce.gd" type="Script" id=4]
 [ext_resource path="res://assets/meshes/env_app_box_produce.tres" type="ArrayMesh" id=5]
 [ext_resource path="res://assets/meshes/env_food_tomato.tres" type="ArrayMesh" id=6]
 [ext_resource path="res://assets/meshes/env_food_cabbage.tres" type="ArrayMesh" id=7]
 [ext_resource path="res://assets/meshes/env_env_metal_shelf.tres" type="ArrayMesh" id=8]
 [ext_resource path="res://assets/meshes/env_app_tray.tres" type="ArrayMesh" id=9]
 [ext_resource path="res://assets/meshes/env_food_burger_patty.tres" type="ArrayMesh" id=10]
+[ext_resource path="res://scenes/appliances/fridge/fridge_door.gd" type="Script" id=11]
+[ext_resource path="res://resources/ingredients/tomato.tres" type="Resource" id=12]
+[ext_resource path="res://resources/ingredients/lettuce.tres" type="Resource" id=13]
+[ext_resource path="res://resources/ingredients/patty.tres" type="Resource" id=14]
 
 [sub_resource type="Animation" id=3]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("DoorMeshRight:rotation_degrees")
+tracks/0/path = NodePath("DoorLeft:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -30,41 +34,47 @@ tracks/0/keys = {
 resource_name = "close"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("DoorMeshRight:rotation_degrees")
+tracks/0/path = NodePath("DoorLeft:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( -2, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 150, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, -85, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=2]
 resource_name = "open"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("DoorMeshRight:rotation_degrees")
+tracks/0/path = NodePath("DoorLeft:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( -2, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 150, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -85, 0 ) ]
 }
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.5, 1.4, 0.9 )
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 0.5, 0.4, 1 )
 
-[node name="Fridge" type="StaticBody" groups=["stations"]]
-script = ExtResource( 4 )
-key = "fridge"
-target_position = NodePath("Position3D")
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.062, 1.36, 0.453 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 0.3, 0.3, 0.2 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 0.4, 0.1, 0.4 )
+
+[node name="Fridge" type="StaticBody"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
@@ -73,11 +83,12 @@ anims/open = SubResource( 2 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 2.4, 0.49 )
+visible = false
 light_energy = 2.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0341011, 1.5, 0 )
-shape = SubResource( 1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0141011, 2, 0 )
+shape = SubResource( 6 )
 
 [node name="Position3D" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
@@ -85,16 +96,26 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = ExtResource( 1 )
 
-[node name="DoorMeshLeft" type="MeshInstance" parent="."]
+[node name="DoorLeft" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44, 1.5, -0.9 )
+script = ExtResource( 11 )
+
+[node name="MeshInstance3D" type="MeshInstance" parent="DoorLeft"]
+cast_shadow = 0
 mesh = ExtResource( 2 )
+skeleton = NodePath("../..")
+
+[node name="CollisionShape" type="CollisionShape" parent="DoorLeft"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.453 )
+shape = SubResource( 5 )
 
 [node name="DoorMeshRight" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44, 1.5, 0.9 )
+cast_shadow = 0
 mesh = ExtResource( 3 )
 
 [node name="Box" type="MeshInstance" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.10051, 0.457404 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.10051, -0.442596 )
 mesh = ExtResource( 5 )
 
 [node name="Tomato1" type="MeshInstance" parent="Box"]
@@ -113,13 +134,36 @@ mesh = ExtResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0214538, 0.10791, -0.199738 )
 mesh = ExtResource( 7 )
 
+[node name="Right" type="StaticBody" parent="Box"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.13, 0.6, -0.2 )
+script = ExtResource( 4 )
+ingredient = ExtResource( 13 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Right"]
+shape = SubResource( 7 )
+
+[node name="Left" type="StaticBody" parent="Box"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.13, 0.6, 0.2 )
+script = ExtResource( 4 )
+ingredient = ExtResource( 12 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Left"]
+shape = SubResource( 7 )
+
 [node name="Shelf1" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14, 0.47 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14, -0.43 )
 mesh = ExtResource( 8 )
 
 [node name="Tray" type="MeshInstance" parent="Shelf1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0 )
 mesh = ExtResource( 9 )
+
+[node name="TrayBody" type="StaticBody" parent="Shelf1/Tray"]
+script = ExtResource( 4 )
+ingredient = ExtResource( 14 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Shelf1/Tray/TrayBody"]
+shape = SubResource( 8 )
 
 [node name="Patty1" type="MeshInstance" parent="Shelf1/Tray"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0, -0.18 )
@@ -138,5 +182,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0, 0.17 )
 mesh = ExtResource( 10 )
 
 [node name="Shelf2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84, 0.47 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84, -0.43 )
 mesh = ExtResource( 8 )

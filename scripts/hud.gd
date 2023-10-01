@@ -1,12 +1,39 @@
 extends Control
 
+onready var action_label: Label = $CenterContainer/ActionLabel
 onready var time_label: Label = $MarginContainer/TimeLabel
-onready var options: Control = $Options
 
 const WARNING_THRESHOLD := 15.0
 
 var time := 300.0
 var warning := false
+
+var _tween: SceneTreeTween
+
+func _ready():
+	Game.connect('inspected', self, '_on_inspection')
+	action_label.text = ''
+	action_label.modulate.a = 0.0
+	pass
+
+func _on_inspection(text: String):
+	if _tween != null:
+		_tween.kill()
+		_tween = null
+	if len(text) == 0:
+		_tween = create_tween()
+		_tween.parallel().tween_property(action_label, 'rect_scale', Vector2(0.0, 0.0), 0.125)
+		_tween.parallel().tween_property(action_label, 'modulate:a', 0.0, 0.125)
+		_tween.tween_callback(self, '_set_action_text', [text])
+	else:
+		_set_action_text(text)
+		_tween = create_tween()
+		_tween.parallel().tween_property(action_label, 'rect_scale', Vector2(1.0, 1.0), 0.125)
+		_tween.parallel().tween_property(action_label, 'modulate:a', 1.0, 0.125)
+		
+func _set_action_text(text: String):
+	action_label.text = text
+	action_label.rect_pivot_offset = action_label.rect_size * 0.5
 
 func _process(delta):
 	time = max(time - delta, 0)

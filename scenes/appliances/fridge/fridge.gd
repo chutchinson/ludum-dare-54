@@ -11,30 +11,23 @@ var _ingredients = [
 	LETTUCE
 ]
 
-func _activate():
-	
-	if not _opened:
-		_show_options([
-			BasicAction.new(self, 'Open Fridge')
-		])
-	else:
-		var actions = [
-			BasicAction.new(self, 'Close Fridge')
-		]
-		for ingredient in _ingredients:
-			actions.push_back(TakeAction.new(self, ingredient.name))
-			
-		_show_options(actions)
-
-func take():
-	print('take from fridge')
-
-func action():
-	if _anim.is_playing():
-		yield (_anim, 'animation_finished')
-	if _opened: _close()
-	else: _open()
+func _ready():
+	collision_layer = 0
 	pass
+
+func inspect(chef: Chef):
+	return
+	if not _opened: Game.inspect('giv')
+	else: Game.inspect('shut')
+	pass
+
+func activate(chef: Chef):
+	return
+	if not _opened: _open()
+	else: _close()
+
+func _take():
+	print('take from fridge')
 	
 func _open():
 	_opened = true

@@ -1,7 +1,10 @@
 extends Node
 
-signal options(pos, options)
+signal inspected(text)
 
-func show_options(pos: Vector3, options):
-	emit_signal('options', pos, options)
-	pass
+var _last_inspection = ''
+
+func inspect(text: String):
+	if _last_inspection != text:
+		_last_inspection = text
+		emit_signal('inspected', text)

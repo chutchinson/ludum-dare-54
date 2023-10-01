@@ -5,7 +5,7 @@ var _pos := Vector3.ZERO
 var _tween: SceneTreeTween = null
 
 func _ready():
-	Game.connect('options', self, '_on_show_options_requested')
+	# Game.connect('options', self, '_on_show_options_requested')
 	modulate.a = 0.0
 	_clear()
 
