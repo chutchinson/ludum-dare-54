@@ -9,25 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Object",
-"class": "Action",
-"language": "GDScript",
-"path": "res://scripts/actions/action.gd"
-}, {
-"base": "Action",
-"class": "BasicAction",
-"language": "GDScript",
-"path": "res://scripts/actions/basic.gd"
-}, {
 "base": "KinematicBody",
 "class": "Chef",
 "language": "GDScript",
-"path": "res://scripts/fps.gd"
+"path": "res://scripts/chef.gd"
 }, {
-"base": "Action",
-"class": "CutAction",
+"base": "Control",
+"class": "GriddleProgress",
 "language": "GDScript",
-"path": "res://scripts/actions/cut.gd"
+"path": "res://scenes/appliances/oven/griddle_progress.gd"
 }, {
 "base": "Resource",
 "class": "Ingredient",
@@ -39,11 +29,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/logic/meal.gd"
 }, {
-"base": "Action",
-"class": "PlaceAction",
-"language": "GDScript",
-"path": "res://scripts/actions/place.gd"
-}, {
 "base": "Resource",
 "class": "Recipe",
 "language": "GDScript",
@@ -54,22 +39,19 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/station.gd"
 }, {
-"base": "Action",
-"class": "TakeAction",
+"base": "Resource",
+"class": "Tool",
 "language": "GDScript",
-"path": "res://scripts/actions/take.gd"
+"path": "res://scripts/tool.gd"
 } ]
 _global_script_class_icons={
-"Action": "",
-"BasicAction": "",
 "Chef": "",
-"CutAction": "",
+"GriddleProgress": "",
 "Ingredient": "",
 "Meal": "",
-"PlaceAction": "",
 "Recipe": "",
 "Station": "",
-"TakeAction": ""
+"Tool": ""
 }
 
 [application]
@@ -81,6 +63,11 @@ config/icon="res://icon.png"
 [autoload]
 
 Game="*res://scripts/game.gd"
+
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
@@ -133,6 +120,7 @@ jump={
 [physics]
 
 common/enable_pause_aware_picking=true
+common/physics_interpolation=true
 
 [rendering]
 

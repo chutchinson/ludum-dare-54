@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/meshes/env_app_oven_knob.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://assets/meshes/env_app_oven_door.tres" type="ArrayMesh" id=2]
@@ -6,51 +6,16 @@
 [ext_resource path="res://assets/meshes/env_app_griddle.tres" type="ArrayMesh" id=4]
 [ext_resource path="res://assets/meshes/env_app_oven_vent.tres" type="ArrayMesh" id=5]
 [ext_resource path="res://scenes/appliances/oven/oven.gd" type="Script" id=6]
+[ext_resource path="res://scenes/appliances/oven/griddle_zone.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.45, 0.45, 0.45 )
-
-[sub_resource type="Gradient" id=5]
-offsets = PoolRealArray( 0.00361011, 0.98917, 1 )
-colors = PoolColorArray( 1, 1, 1, 0.0392157, 0.0938628, 0.0938628, 0.0938628, 0.0938628, 0, 0, 0, 0 )
-
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
-
-[sub_resource type="Curve" id=7]
-_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=8]
-curve = SubResource( 7 )
-
-[sub_resource type="ParticlesMaterial" id=2]
-direction = Vector3( 0, 1, 0 )
-spread = 10.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 0.1
-linear_accel = 1.0
-tangential_accel = 0.2
-damping = 0.5
-damping_random = 1.0
-scale = 5.0
-scale_curve = SubResource( 8 )
-color_ramp = SubResource( 6 )
-
-[sub_resource type="SpatialMaterial" id=4]
-flags_transparent = true
-vertex_color_use_as_albedo = true
-
-[sub_resource type="SphereMesh" id=3]
-material = SubResource( 4 )
-radius = 0.04
-height = 0.08
-rings = 12
+extents = Vector3( 0.45, 0.5, 0.45 )
 
 [node name="Oven" type="StaticBody"]
 script = ExtResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 shape = SubResource( 1 )
 
 [node name="Position3D" type="Position3D" parent="."]
@@ -92,21 +57,14 @@ light_energy = 10.0
 spot_range = 1.5
 spot_angle = 25.03
 
-[node name="Item1" type="Position3D" parent="."]
+[node name="GriddleZone1" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.92, -0.16 )
 
-[node name="Particles" type="Particles" parent="Item1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.229485, 0 )
-visible = false
-lifetime = 1.25
-process_material = SubResource( 2 )
-draw_pass_1 = SubResource( 3 )
-
-[node name="Item2" type="Position3D" parent="."]
+[node name="GriddleZone2" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.92, 0.14 )
 
-[node name="Item3" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.92, 0.14 )
-
-[node name="Item4" type="Position3D" parent="."]
+[node name="GriddleZone3" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.92, -0.16 )
+
+[node name="GriddleZone4" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.92, 0.14 )

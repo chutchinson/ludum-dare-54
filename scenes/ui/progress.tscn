@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/textures/circle.svg" type="Texture" id=1]
+
+[node name="ProgressCircle" type="Control"]
+margin_right = 85.0
+margin_bottom = 85.0
+
+[node name="Progress" type="TextureProgress" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -39.0
+margin_top = -39.0
+margin_right = 39.0
+margin_bottom = 39.0
+value = 50.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+fill_mode = 4
+tint_progress = Color( 0, 0.843137, 0.309804, 1 )

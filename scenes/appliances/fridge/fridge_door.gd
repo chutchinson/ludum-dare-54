@@ -5,8 +5,8 @@ onready var _anim: AnimationPlayer = get_parent().get_node("AnimationPlayer")
 var _opened := false
 
 func inspect(chef: Chef):
-	if not _opened: Game.inspect('open')
-	else: Game.inspect('bye')
+	if not _opened: Game.inspect('Open')
+	else: Game.inspect('Close')
 	
 func activate(chef: Chef):
 	if not _opened: _open()

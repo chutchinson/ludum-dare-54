@@ -1,21 +1,55 @@
 extends Station
 
-const PATTY = preload('res://resources/ingredients/patty.tres')
-
-onready var _placements = [$Item1, $Item2, $Item3, $Item4]
-var _items := 0
+onready var _zones = [$GriddleZone1, $GriddleZone2, $GriddleZone3, $GriddleZone4]
 
 func inspect(chef: Chef):
-	Game.inspect('cook fud')
-	pass
+	if _can_place(chef):
+		Game.inspect('Place %s' % [ chef.ingredient.name ])
+	elif _can_pickup(chef):
+		Game.inspect('Pickup')
+	else:
+		Game.inspect('')
 
 func activate(chef: Chef):
-	if _items >= len(_placements): 
-		return
-	_place(PATTY)
+	if _can_place(chef): _place(chef)
+	elif _can_pickup(chef): _pickup(chef)
+		
+func _can_pickup(chef: Chef) -> bool:
+	if not chef.is_holding_tool('spatula'): 
+		return false
+	for zone in _zones:
+		if zone.cooked:
+			return true
+	return false
+		
+func _can_place(chef: Chef) -> bool:
+	if not chef.is_holding_ingredient(): return false
+	
+	var can_cook = (chef.ingredient.flags & Ingredient.IngredientFlags.COOK) == Ingredient.IngredientFlags.COOK
+	if not can_cook: return false
+	
+	var available = 0
+	for zone in _zones:
+		if not zone.occupied:
+			available += 1
 
-func _place(ingredient: Ingredient):
-	var placement = _placements[_items]
-	var scene = ingredient.scene.instance()
-	placement.add_child(scene)
-	_items += 1
+	return available > 0
+
+func _pickup(chef: Chef):
+	var cooked_ingredient: Ingredient = null
+	for zone in _zones:
+		if zone.cooked:
+			cooked_ingredient = zone.pickup()
+			break
+	print('pickup %s' % cooked_ingredient)
+	if cooked_ingredient != null:
+		print('cooked ingredient %s', cooked_ingredient.name)
+		chef.hold_ingredient(cooked_ingredient)
+		
+
+func _place(chef: Chef):
+	for zone in _zones:
+		if not zone.occupied:
+			var ingredient = chef.take_ingredient()
+			zone.accept(ingredient)
+			return

@@ -10,5 +10,4 @@ func activate(chef: Chef):
 func _ready():
 	add_to_group('stations', true)
 	collision_layer = 2
-	print('station ready %s' % self)
 	pass

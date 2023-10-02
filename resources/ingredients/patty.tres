@@ -7,3 +7,6 @@
 script = ExtResource( 1 )
 name = "Hamburger"
 scene = ExtResource( 2 )
+cook_time = 1.5
+burn_time = 15.0
+flags = 2
