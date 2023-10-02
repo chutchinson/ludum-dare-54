@@ -9,6 +9,7 @@ func inspect(chef: Chef):
 
 func activate(chef: Chef):
 	if not _can_activate(): return
+	chef.take_order()
 	$AnimationPlayer.play('activate')
 
 func _on_AnimationPlayer_animation_finished(anim_name):

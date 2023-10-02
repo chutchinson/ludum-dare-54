@@ -9,7 +9,9 @@ func inspect(chef: Chef):
 	if _can_place_ingredients(chef):
 		Game.inspect('Place %s' % [chef.ingredient.name])
 	elif _can_prep(chef):
-		Game.inspect('cut vegetals')
+		Game.inspect('Chop')
+	elif _can_take(chef):
+		Game.inspect('Take %s' % [_ingredient.name])
 	else:
 		Game.inspect('')
 
@@ -18,18 +20,31 @@ func activate(chef: Chef):
 		_place(chef)
 	elif _can_prep(chef):
 		_prep()
+	elif _can_take(chef):
+		_take(chef)
 		
+func _can_take(chef: Chef) -> bool:
+	if chef.is_holding_any(): return false
+	return _ingredient != null and _ingredient.is_prepared()
+	
+func _take(chef: Chef):
+	for child in _end_pos.get_children():
+		child.queue_free()
+	chef.hold_ingredient(_ingredient)
+	_ingredient = null
+	
 func _prep():
 	for child in _start_pos.get_children():
 		child.queue_free()
 	
 	for idx in range(0, 3):
-		var fragment = _ingredient.fragment_scene.instance()
-		_end_pos.add_child(fragment)
-		fragment.translation = Vector3(0, 0.03 * idx, 0)
-		fragment.rotation.y = deg2rad(90.0 * idx)
+		var ingredient_prepared = _ingredient.ingredient_prepared as Ingredient
+		var node = ingredient_prepared.scene.instance()
+		_end_pos.add_child(node)
+		node.translation = Vector3(0, 0.03 * idx, 0)
+		node.rotation.y = deg2rad(90.0 * idx)
 		
-	_ingredient = null
+	_ingredient = _ingredient.ingredient_prepared as Ingredient
 		
 func _place(chef: Chef):
 	_ingredient = chef.take_ingredient()
@@ -43,5 +58,7 @@ func _can_place_ingredients(chef: Chef) -> bool:
 	return can_prep
 
 func _can_prep(chef: Chef) -> bool:
+	if chef.is_holding_order(): return false
 	if chef.is_holding_ingredient(): return false
-	return _ingredient != null and chef.is_holding_tool('knife')
+	if _ingredient == null: return false
+	return _ingredient.can_prep() and chef.is_holding_tool('knife')

@@ -4,5 +4,6 @@
 [ext_resource path="res://assets/materials/palette_tool.tres" type="Material" id=2]
 
 [node name="Spatula" type="MeshInstance"]
+transform = Transform( -0.178606, 0.906308, 0.383022, -0.659521, 0.178607, -0.730159, -0.730159, -0.383022, 0.565828, 0.237905, 0.144549, 0.0236039 )
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 2 )

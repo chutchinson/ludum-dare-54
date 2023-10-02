@@ -17,6 +17,8 @@ func activate(chef: Chef):
 func _can_pickup(chef: Chef) -> bool:
 	if not chef.is_holding_tool('spatula'): 
 		return false
+	if chef.is_holding_ingredient():
+		return false
 	for zone in _zones:
 		if zone.cooked:
 			return true
@@ -37,11 +39,12 @@ func _can_place(chef: Chef) -> bool:
 
 func _pickup(chef: Chef):
 	var cooked_ingredient: Ingredient = null
+	
 	for zone in _zones:
 		if zone.cooked:
 			cooked_ingredient = zone.pickup()
 			break
-	print('pickup %s' % cooked_ingredient)
+	
 	if cooked_ingredient != null:
 		print('cooked ingredient %s', cooked_ingredient.name)
 		chef.hold_ingredient(cooked_ingredient)

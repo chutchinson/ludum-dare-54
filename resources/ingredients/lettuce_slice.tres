@@ -9,4 +9,5 @@ name = "Lettuce"
 scene = ExtResource( 2 )
 cook_time = 10.0
 burn_time = 15.0
+height = 0.02
 flags = 4

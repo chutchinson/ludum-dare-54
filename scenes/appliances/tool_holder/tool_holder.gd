@@ -20,4 +20,4 @@ func activate(chef: Chef):
 	chef.current_tool = null
 	
 func _can_place_tool(chef: Chef) -> bool:
-	return chef.is_holding_tool('')
+	return chef.is_holding_tool('knife') or chef.is_holding_tool('spatula')

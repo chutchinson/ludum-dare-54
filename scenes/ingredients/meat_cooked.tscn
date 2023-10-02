@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/meshes/env_food_burger_patty.tres" type="ArrayMesh" id=1]
+
+[node name="MeatCooked" type="MeshInstance"]
+mesh = ExtResource( 1 )

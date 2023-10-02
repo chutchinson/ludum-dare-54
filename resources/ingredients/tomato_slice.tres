@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://scripts/resources/ingredient.gd" type="Script" id=1]
-[ext_resource path="res://scenes/ingredients/tomato.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/ingredients/tomato_piece.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -9,4 +9,5 @@ name = "Tomato"
 scene = ExtResource( 2 )
 cook_time = 0.0
 burn_time = 0.0
+height = 0.017
 flags = 4

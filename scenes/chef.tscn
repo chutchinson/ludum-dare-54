@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/camera.gd" type="Script" id=1]
 [ext_resource path="res://scripts/chef.gd" type="Script" id=2]
-[ext_resource path="res://scenes/ingredients/tomato.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/tools/spatula.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/tools/plate.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ingredients/tomato.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/tools/knife.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/tools/spatula.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/ingredients/lettuce.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CapsuleShape" id=10]
 radius = 0.3
@@ -31,16 +34,30 @@ cast_to = Vector3( 0, 0, -1.2 )
 collision_mask = 3
 
 [node name="RightHand" type="Spatial" parent="Gimbal/Camera"]
-transform = Transform( -3.41471e-08, 0.422619, -0.906307, -1, 7.45058e-09, 2.38419e-07, 5.01466e-08, 0.906308, 0.422618, 0.4, -0.3, -0.2 )
+transform = Transform( -3.41471e-08, 0.422619, -0.906307, -1, 7.45058e-09, 2.38419e-07, 5.01466e-08, 0.906308, 0.422618, 0.3, -0.2, -0.2 )
 
 [node name="ItemPos" type="Position3D" parent="Gimbal/Camera/RightHand"]
-transform = Transform( 0.224144, -0.969452, 0.099627, 0.930117, 0.182285, -0.318834, 0.290934, 0.16413, 0.942561, -0.00999999, -0.509878, 0.00498295 )
+transform = Transform( 0.224144, -0.969453, 0.099627, 0.930117, 0.182285, -0.318834, 0.290934, 0.16413, 0.942561, 0.115437, -0.351583, -0.141546 )
 
-[node name="Tomato" parent="Gimbal/Camera/RightHand/ItemPos" instance=ExtResource( 3 )]
-transform = Transform( 1, -7.45058e-08, -7.45058e-09, -7.45058e-08, 1, 0, 1.3411e-07, 1.86265e-09, 1, 0, 0, 0 )
+[node name="Tomato" parent="Gimbal/Camera/RightHand/ItemPos" instance=ExtResource( 4 )]
+transform = Transform( 1, 2.98023e-08, -1.49012e-08, 0, 1, 1.11759e-08, -7.45058e-09, -7.45058e-09, 1, 0, 0, 0 )
+visible = false
+
+[node name="Lettuce" parent="Gimbal/Camera/RightHand/ItemPos" instance=ExtResource( 7 )]
+visible = false
+
+[node name="Plate" parent="Gimbal/Camera/RightHand/ItemPos" instance=ExtResource( 3 )]
 visible = false
 
 [node name="ToolPos" type="Position3D" parent="Gimbal/Camera/RightHand"]
+transform = Transform( 4.11307e-08, -0.996195, 0.0871557, 0.906307, -0.0368334, -0.42101, 0.422619, 0.0789896, 0.902859, 0, -2.98023e-08, 1.19209e-07 )
 
-[node name="Spatula" parent="Gimbal/Camera/RightHand/ToolPos" instance=ExtResource( 4 )]
+[node name="Plate" parent="Gimbal/Camera/RightHand/ToolPos" instance=ExtResource( 3 )]
+visible = false
+
+[node name="Knife" parent="Gimbal/Camera/RightHand/ToolPos" instance=ExtResource( 5 )]
+visible = false
+
+[node name="Spatula" parent="Gimbal/Camera/RightHand/ToolPos" instance=ExtResource( 6 )]
+transform = Transform( -0.178606, 0.906308, 0.383022, -0.65952, 0.178607, -0.730158, -0.730158, -0.383022, 0.565828, 0.237905, 0.144549, 0.0236039 )
 visible = false

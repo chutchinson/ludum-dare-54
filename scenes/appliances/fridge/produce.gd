@@ -3,7 +3,7 @@ extends Station
 export(Resource) var ingredient = null
 
 func _can_take(chef: Chef) -> bool:
-	return not chef.is_holding_ingredient()
+	return not chef.is_holding_any()
 	
 func _can_return(chef: Chef) -> bool:
 	if not chef.is_holding_ingredient(): return false

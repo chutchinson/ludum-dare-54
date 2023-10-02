@@ -9,13 +9,13 @@
 [ext_resource path="res://scenes/appliances/oven/griddle_zone.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.45, 0.5, 0.45 )
+extents = Vector3( 0.45, 0.54, 0.45 )
 
 [node name="Oven" type="StaticBody"]
 script = ExtResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0 )
 shape = SubResource( 1 )
 
 [node name="Position3D" type="Position3D" parent="."]
@@ -49,22 +49,23 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 0.01, 0 )
 mesh = ExtResource( 4 )
 
 [node name="Vent" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0 )
 mesh = ExtResource( 5 )
 
 [node name="SpotLight" type="SpotLight" parent="Vent"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.2, 2, 0 )
 light_energy = 10.0
 spot_range = 1.5
 spot_angle = 25.03
 
 [node name="GriddleZone1" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.92, -0.16 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1, -0.16 )
 
 [node name="GriddleZone2" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.92, 0.14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1, 0.14 )
 
 [node name="GriddleZone3" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.92, -0.16 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1, -0.16 )
 
 [node name="GriddleZone4" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.92, 0.14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1, 0.14 )

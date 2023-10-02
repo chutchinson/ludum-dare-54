@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform vec4 background = vec4(1.0, 1.0, 1.0, 1.0);
+uniform sampler2D albedo_texture: hint_albedo;
+
+void fragment() {
+	vec2 uv = UV;
+	uv.y = 1.0 - uv.y;
+	vec4 albedo = texture(albedo_texture, uv);
+	ALBEDO = albedo.rgb;
+}"
+
+[resource]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/background = Plane( 1, 1, 1, 1 )

@@ -21,4 +21,4 @@ func _take_tool(chef: Chef):
 	$CollisionShape.disabled = true
 	
 func _can_take_tool(chef: Chef):
-	return not chef.is_holding_tool('') and visible
+	return not chef.is_holding_any() and visible

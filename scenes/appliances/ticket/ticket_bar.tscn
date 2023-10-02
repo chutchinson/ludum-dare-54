@@ -1,0 +1,22 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/meshes/env_env_ticket_bar.tres" type="ArrayMesh" id=1]
+[ext_resource path="res://scenes/appliances/ticket/ticket_bar.gd" type="Script" id=2]
+[ext_resource path="res://resources/recipes/bread.tres" type="Resource" id=3]
+[ext_resource path="res://resources/recipes/classic.tres" type="Resource" id=4]
+[ext_resource path="res://resources/recipes/allinone.tres" type="Resource" id=5]
+[ext_resource path="res://resources/recipes/double.tres" type="Resource" id=6]
+
+[node name="TicketBar" type="MeshInstance"]
+mesh = ExtResource( 1 )
+script = ExtResource( 2 )
+recipes = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ]
+
+[node name="Ticket1" type="Position3D" parent="."]
+transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.207412, 0.549659, -0.5 )
+
+[node name="Ticket2" type="Position3D" parent="."]
+transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.207412, 0.549659, 0 )
+
+[node name="Ticket3" type="Position3D" parent="."]
+transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.207412, 0.549659, 0.5 )

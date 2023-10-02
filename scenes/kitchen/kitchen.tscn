@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/appliances/prep/prep_table.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/interior/floor_2u.tscn" type="PackedScene" id=2]
@@ -11,31 +11,100 @@
 [ext_resource path="res://scenes/interior/wall_2u.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/interior/corner_2u.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/appliances/trash/trash.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/meshes/env_app_tray.tres" type="ArrayMesh" id=12]
+[ext_resource path="res://assets/meshes/env_food_bun_top.tres" type="ArrayMesh" id=13]
+[ext_resource path="res://assets/meshes/env_food_bun_bottom.tres" type="ArrayMesh" id=14]
+[ext_resource path="res://scenes/appliances/fridge/produce.gd" type="Script" id=15]
+[ext_resource path="res://resources/ingredients/bun_bottom.tres" type="Resource" id=16]
+[ext_resource path="res://resources/ingredients/bun_top.tres" type="Resource" id=17]
+[ext_resource path="res://assets/meshes/env_app_wood_shelf.tres" type="ArrayMesh" id=18]
+[ext_resource path="res://scenes/appliances/topping_tray/topping_tray.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/meshes/env_food_cheese_stack.tres" type="ArrayMesh" id=20]
+[ext_resource path="res://assets/meshes/env_food_mustard_bottle.tres" type="ArrayMesh" id=21]
+[ext_resource path="res://assets/meshes/env_food_mayo_bottle.tres" type="ArrayMesh" id=22]
+[ext_resource path="res://assets/meshes/env_food_ketchup_bottle.tres" type="ArrayMesh" id=23]
+[ext_resource path="res://resources/ingredients/cheese.tres" type="Resource" id=24]
+[ext_resource path="res://scenes/appliances/ticket/ticket_bar.tscn" type="PackedScene" id=25]
+
+[sub_resource type="Gradient" id=4]
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="ProceduralSky" id=3]
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 3 )
+background_energy = 0.5
+adjustment_color_correction = SubResource( 5 )
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.3, 0.2, 0.1 )
 
 [node name="Kitchen" type="Spatial"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( -3.09086e-08, -0.707107, 0.707107, -3.09086e-08, 0.707107, 0.707107, -1, 0, -4.37114e-08, 0, 2.4, 0 )
+spot_range = 2.0
+spot_angle = 35.1895
+spot_angle_attenuation = 5.46415
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 3.7, 1 )
+light_energy = 0.5
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.866025, -0.433013, -0.25, 4.37114e-08, -0.5, 0.866026, -0.5, -0.75, -0.433013, 0, 2.2, 0 )
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_normal_bias = 0.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 20.0
+
 [node name="Interior" type="Spatial" parent="."]
+
+[node name="TicketBar" parent="Interior" instance=ExtResource( 25 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.25, 0 )
 
 [node name="Corner2u" parent="Interior" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1 )
 
+[node name="Corner2u3" parent="Interior" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, -2 )
+
 [node name="Corner2u2" parent="Interior" instance=ExtResource( 10 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 4 )
+
+[node name="Corner2u4" parent="Interior" instance=ExtResource( 10 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, 3 )
 
 [node name="Wall2u" parent="Interior" instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 2, 0, 1 )
 
 [node name="Wall2u2" parent="Interior" instance=ExtResource( 9 )]
-transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -1, 0, -2 )
+transform = Transform( 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, -2, 0, 1 )
 
-[node name="Wall2u5" parent="Interior" instance=ExtResource( 9 )]
-transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -3, 0, -2 )
+[node name="Corner2u5" parent="Interior" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -1 )
+
+[node name="Corner2u6" parent="Interior" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, -2 )
+
+[node name="Corner2u7" parent="Interior" instance=ExtResource( 10 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 2, 4 )
+
+[node name="Corner2u8" parent="Interior" instance=ExtResource( 10 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 2, 3 )
 
 [node name="Wall2u3" parent="Interior" instance=ExtResource( 9 )]
-transform = Transform( -5.73206e-15, 1.31134e-07, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, 1.31134e-07, -1, 0, 4 )
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 2, 2, 1 )
 
 [node name="Wall2u4" parent="Interior" instance=ExtResource( 9 )]
-transform = Transform( -5.73206e-15, 1.31134e-07, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, 1.31134e-07, -3, 0, 4 )
+transform = Transform( 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, -2, 2, 1 )
 
 [node name="Floor2u" parent="Interior" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1 )
@@ -55,14 +124,33 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3 )
 [node name="Floor2u4" parent="Interior" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1 )
 
-[node name="Floor2u7" parent="Interior" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1 )
+[node name="WoodShelf" type="MeshInstance" parent="Interior"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.4, 2.5 )
+mesh = ExtResource( 18 )
 
-[node name="Floor2u8" parent="Interior" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3 )
+[node name="ToppingTray" parent="Interior/WoodShelf" instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.00999999, -0.13 )
+ingredient = ExtResource( 24 )
 
-[node name="Floor2u9" parent="Interior" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1 )
+[node name="CheeseSlices" type="MeshInstance" parent="Interior/WoodShelf/ToppingTray"]
+transform = Transform( 1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0.02, 0 )
+mesh = ExtResource( 20 )
+skeleton = NodePath("")
+
+[node name="KetchupBottle" type="MeshInstance" parent="Interior/WoodShelf"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.00999999, 0.13 )
+mesh = ExtResource( 23 )
+skeleton = NodePath("")
+
+[node name="MustardBottle" type="MeshInstance" parent="Interior/WoodShelf"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.00999999, 0.25 )
+mesh = ExtResource( 21 )
+skeleton = NodePath("")
+
+[node name="MayoBottle" type="MeshInstance" parent="Interior/WoodShelf"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.00999999, 0.37 )
+mesh = ExtResource( 22 )
+skeleton = NodePath("")
 
 [node name="TrashCan" parent="." instance=ExtResource( 11 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.5, 0, 3.3 )
@@ -96,3 +184,68 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 2 )
 
 [node name="Plates" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 2.5 )
+
+[node name="BunTray" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.13, 1.5 )
+mesh = ExtResource( 12 )
+
+[node name="BunTop" type="StaticBody" parent="BunTray"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16 )
+script = ExtResource( 15 )
+ingredient = ExtResource( 17 )
+
+[node name="CollisionShape" type="CollisionShape" parent="BunTray/BunTop"]
+shape = SubResource( 1 )
+
+[node name="BunTop1" type="MeshInstance" parent="BunTray/BunTop"]
+transform = Transform( -0.707107, 0.707107, -8.74228e-08, 0.707107, 0.707107, 0, 6.18172e-08, -6.18172e-08, -1, 0.15, 0.0700001, 0 )
+mesh = ExtResource( 13 )
+
+[node name="BunTop2" type="MeshInstance" parent="BunTray/BunTop"]
+transform = Transform( -0.707107, 0.707107, -8.74228e-08, 0.707107, 0.707107, 0, 6.18172e-08, -6.18172e-08, -1, 0.05, 0.0700001, 0 )
+mesh = ExtResource( 13 )
+
+[node name="BunTop3" type="MeshInstance" parent="BunTray/BunTop"]
+transform = Transform( -0.707107, 0.707107, -8.74228e-08, 0.707107, 0.707107, 0, 6.18172e-08, -6.18172e-08, -1, -0.05, 0.0700001, 0 )
+mesh = ExtResource( 13 )
+
+[node name="BunTop4" type="MeshInstance" parent="BunTray/BunTop"]
+transform = Transform( -0.707107, 0.707107, -8.74228e-08, 0.707107, 0.707107, 0, 6.18172e-08, -6.18172e-08, -1, -0.15, 0.0700001, 0 )
+mesh = ExtResource( 13 )
+
+[node name="BunTop5" type="MeshInstance" parent="BunTray/BunTop"]
+transform = Transform( -0.965926, 0.258819, -7.57103e-08, 0.258819, 0.965926, -4.37114e-08, 6.18172e-08, -6.18172e-08, -1, -0.25, 0.0400001, 0 )
+mesh = ExtResource( 13 )
+
+[node name="BunBottom" type="StaticBody" parent="BunTray"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0, 0.17 )
+script = ExtResource( 15 )
+ingredient = ExtResource( 16 )
+
+[node name="CollisionShape" type="CollisionShape" parent="BunTray/BunBottom"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="BunBottom1" type="MeshInstance" parent="BunTray/BunBottom"]
+transform = Transform( -0.906308, 0.422618, -8.21505e-08, 0.422618, 0.906308, -2.99003e-08, 6.18172e-08, -6.18172e-08, -1, -0.252279, 0.0360473, 0 )
+mesh = ExtResource( 14 )
+
+[node name="BunBottom2" type="MeshInstance" parent="BunTray/BunBottom"]
+transform = Transform( -0.906308, 0.422618, -8.21505e-08, 0.422618, 0.906308, -2.99003e-08, 6.18172e-08, -6.18172e-08, -1, -0.202279, 0.0360473, 0 )
+mesh = ExtResource( 14 )
+
+[node name="BunBottom3" type="MeshInstance" parent="BunTray/BunBottom"]
+transform = Transform( -0.906308, 0.422618, -8.21505e-08, 0.422618, 0.906308, -2.99003e-08, 6.18172e-08, -6.18172e-08, -1, -0.142279, 0.0360473, 0 )
+mesh = ExtResource( 14 )
+
+[node name="BunBottom4" type="MeshInstance" parent="BunTray/BunBottom"]
+transform = Transform( -0.906308, 0.422618, -8.21505e-08, 0.422618, 0.906308, -2.99003e-08, 6.18172e-08, -6.18172e-08, -1, -0.0822788, 0.0360473, 0 )
+mesh = ExtResource( 14 )
+
+[node name="BunBottom5" type="MeshInstance" parent="BunTray/BunBottom"]
+transform = Transform( -0.906308, 0.422618, -8.21505e-08, 0.422618, 0.906308, -2.99003e-08, 6.18172e-08, -6.18172e-08, -1, -0.302279, 0.0360473, 0 )
+mesh = ExtResource( 14 )
+
+[node name="BunBottom6" type="MeshInstance" parent="BunTray/BunBottom"]
+transform = Transform( -0.906308, 0.422618, -8.21505e-08, 0.422618, 0.906308, -2.99003e-08, 6.18172e-08, -6.18172e-08, -1, -0.362279, 0.0360473, 0 )
+mesh = ExtResource( 14 )

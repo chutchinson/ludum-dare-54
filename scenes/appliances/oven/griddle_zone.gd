@@ -53,5 +53,13 @@ func _on_Timer_timeout():
 	if not cooked:
 		cooked = true
 		burning = true
+		
+		var cooked_ingredient = _ingredient.ingredient_cooked
+
+		_node.queue_free()
+		_node = cooked_ingredient.scene.instance()
+		_ingredient = cooked_ingredient
+		add_child(_node)
+		
 		_timer.wait_time = _ingredient.burn_time
 		_anim.play('burning')

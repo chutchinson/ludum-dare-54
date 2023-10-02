@@ -20,9 +20,9 @@ func _can_return(chef: Chef) -> bool:
 	return chef.is_holding_tool('plate')
 	
 func _can_take(chef: Chef) -> bool:
-	if chef.is_holding_ingredient(): return false
-	if chef.is_holding_tool(''): return false
-	return count > 0
+	if chef.is_holding_any(): return false
+	return true
+	# return count > 0
 
 func _update():
 	$Plate1.visible = count >= 1
@@ -31,10 +31,10 @@ func _update():
 	
 func _return(chef: Chef):
 	chef.current_tool = null
-	count += 1
-	_update()
+	#count += 1
+	#_update()
 	
 func _take(chef: Chef):
 	chef.current_tool = PLATE
-	count = max(count - 1, 0)
-	_update()
+	#count = max(count - 1, 0)
+	#_update()

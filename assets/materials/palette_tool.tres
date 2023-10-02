@@ -3,6 +3,7 @@
 [ext_resource path="res://assets/textures/palette.png" type="Texture" id=1]
 
 [resource]
+flags_no_depth_test = true
 albedo_texture = ExtResource( 1 )
 metallic = 0.15
 roughness = 0.98
