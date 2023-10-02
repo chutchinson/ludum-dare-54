@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/meshes/env_env_plate_holder.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://scenes/appliances/plates/plates.gd" type="Script" id=2]
 [ext_resource path="res://assets/meshes/env_app_plate_lg.tres" type="ArrayMesh" id=3]
+[ext_resource path="res://assets/sfx/sfx_plate_take.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/sfx/sfx_plate_drop.ogg" type="AudioStream" id=5]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.4
@@ -33,3 +35,11 @@ mesh = ExtResource( 3 )
 [node name="Plate3" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0 )
 mesh = ExtResource( 3 )
+
+[node name="SfxTake" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+unit_db = 3.0
+
+[node name="SfxDrop" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 5 )
+unit_db = 3.0

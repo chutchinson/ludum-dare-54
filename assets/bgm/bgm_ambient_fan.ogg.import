@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bgm_ambient_fan.ogg-0c69bd20bc61f762ca4bca4fdf862702.oggstr"
+
+[deps]
+
+source_file="res://assets/bgm/bgm_ambient_fan.ogg"
+dest_files=[ "res://.import/bgm_ambient_fan.ogg-0c69bd20bc61f762ca4bca4fdf862702.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

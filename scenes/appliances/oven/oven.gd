@@ -48,6 +48,7 @@ func _pickup(chef: Chef):
 	if cooked_ingredient != null:
 		print('cooked ingredient %s', cooked_ingredient.name)
 		chef.hold_ingredient(cooked_ingredient)
+		$SfxPickup.play()
 		
 
 func _place(chef: Chef):

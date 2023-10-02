@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Burger"
+name = "Patty"
 scene = ExtResource( 2 )
 cook_time = 10.0
 burn_time = 15.0
-height = 0.03
+height = 0.05
 flags = 4

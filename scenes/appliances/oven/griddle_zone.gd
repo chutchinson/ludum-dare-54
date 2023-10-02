@@ -30,6 +30,8 @@ func pickup() -> Ingredient:
 	cooked = false
 	burning = false
 	
+	$SfxSizzle.stop()
+	
 	return cooked_ingredient
 
 func accept(ingredient: Ingredient):
@@ -41,6 +43,8 @@ func accept(ingredient: Ingredient):
 	
 	add_child(_node)
 	cooked = false
+	
+	$SfxSizzle.play()
 	
 func _process(_delta):
 	if _node == null: return

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/sfx_fridge_ambient.ogg-822f12f50d958c723ec0093309e6f9a8.oggstr"
+
+[deps]
+
+source_file="res://assets/sfx/sfx_fridge_ambient.ogg"
+dest_files=[ "res://.import/sfx_fridge_ambient.ogg-822f12f50d958c723ec0093309e6f9a8.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

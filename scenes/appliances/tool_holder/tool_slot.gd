@@ -19,6 +19,7 @@ func _take_tool(chef: Chef):
 	chef.current_tool = tool_item
 	visible = false
 	$CollisionShape.disabled = true
+	$"../SfxPickup".play()
 	
 func _can_take_tool(chef: Chef):
 	return not chef.is_holding_any() and visible

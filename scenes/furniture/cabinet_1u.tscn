@@ -3,12 +3,12 @@
 [ext_resource path="res://assets/meshes/env_app_cabinet.tres" type="ArrayMesh" id=1]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.5, 0.6, 0.5 )
+extents = Vector3( 0.5, 0.5, 0.5 )
 
 [node name="Cabinet1u" type="StaticBody"]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 shape = SubResource( 1 )
 
 [node name="Position3D" type="Position3D" parent="."]

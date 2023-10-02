@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/camera.gd" type="Script" id=1]
 [ext_resource path="res://scripts/chef.gd" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://scenes/tools/knife.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/tools/spatula.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/ingredients/lettuce.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/sfx/sfx_step.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/sfx/sfx_pickup.ogg" type="AudioStream" id=9]
 
 [sub_resource type="CapsuleShape" id=10]
 radius = 0.3
@@ -61,3 +63,12 @@ visible = false
 [node name="Spatula" parent="Gimbal/Camera/RightHand/ToolPos" instance=ExtResource( 6 )]
 transform = Transform( -0.178606, 0.906308, 0.383022, -0.65952, 0.178607, -0.730158, -0.730158, -0.383022, 0.565828, 0.237905, 0.144549, 0.0236039 )
 visible = false
+
+[node name="SfxStep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+autoplay = true
+bus = "Sfx"
+
+[node name="SfxGrab" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+bus = "Sfx"

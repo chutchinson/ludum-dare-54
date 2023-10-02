@@ -20,6 +20,9 @@ func _trash(chef: Chef):
 	if chef.is_holding_ingredient():
 		var ingredient = chef.take_ingredient()
 		print('trashed %s' % ingredient.name)
+		Game.trash_ingredient(10)
 	elif chef.is_holding_order():
 		var order = chef.take_order()
+		Game.trash_ingredient(50)
 		print('trashed order')
+	$SfxTrash.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/appliances/prep/prep_table.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/interior/floor_2u.tscn" type="PackedScene" id=2]
@@ -25,6 +25,17 @@
 [ext_resource path="res://assets/meshes/env_food_ketchup_bottle.tres" type="ArrayMesh" id=23]
 [ext_resource path="res://resources/ingredients/cheese.tres" type="Resource" id=24]
 [ext_resource path="res://scenes/appliances/ticket/ticket_bar.tscn" type="PackedScene" id=25]
+[ext_resource path="res://assets/bgm/bgm_ambient_fan.ogg" type="AudioStream" id=26]
+[ext_resource path="res://scenes/interior/wall_door_2u.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/appliances/order_tray/order_tray.tscn" type="PackedScene" id=28]
+[ext_resource path="res://scenes/interior/ceiling_2u.tscn" type="PackedScene" id=29]
+[ext_resource path="res://resources/recipes/classic.tres" type="Resource" id=30]
+[ext_resource path="res://resources/recipes/bread.tres" type="Resource" id=31]
+[ext_resource path="res://resources/recipes/allinone.tres" type="Resource" id=32]
+[ext_resource path="res://resources/recipes/double.tres" type="Resource" id=33]
+[ext_resource path="res://resources/recipes/veggie.tres" type="Resource" id=34]
+[ext_resource path="res://resources/recipes/heart_attack.tres" type="Resource" id=35]
+[ext_resource path="res://resources/recipes/salad.tres" type="Resource" id=36]
 
 [sub_resource type="Gradient" id=4]
 
@@ -37,12 +48,20 @@ gradient = SubResource( 4 )
 background_mode = 2
 background_sky = SubResource( 3 )
 background_energy = 0.5
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.5
+tonemap_mode = 2
 adjustment_color_correction = SubResource( 5 )
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.3, 0.2, 0.1 )
 
 [node name="Kitchen" type="Spatial"]
+
+[node name="AmbienceBgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 26 )
+volume_db = -8.0
+autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
@@ -58,17 +77,52 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 3.7, 1 )
 light_energy = 0.5
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.866025, -0.433013, -0.25, 4.37114e-08, -0.5, 0.866026, -0.5, -0.75, -0.433013, 0, 2.2, 0 )
+transform = Transform( 0.836516, -0.288849, -0.465625, 0.224144, -0.595035, 0.771812, -0.5, -0.75, -0.433013, 0, 2.7, 0 )
+light_color = Color( 0.847059, 0.847059, 0.847059, 1 )
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_normal_bias = 0.0
 directional_shadow_depth_range = 1
-directional_shadow_max_distance = 20.0
+directional_shadow_max_distance = 15.0
 
 [node name="Interior" type="Spatial" parent="."]
 
+[node name="Ceiling" type="Spatial" parent="Interior"]
+
+[node name="Ceiling2u" parent="Interior/Ceiling" instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.9, -1 )
+skeleton = NodePath("../..")
+
+[node name="Ceiling2u2" parent="Interior/Ceiling" instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.9, 1 )
+skeleton = NodePath("../..")
+
+[node name="Ceiling2u3" parent="Interior/Ceiling" instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.9, 3 )
+skeleton = NodePath("../..")
+
+[node name="Ceiling2u4" parent="Interior/Ceiling" instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3.9, -1 )
+skeleton = NodePath("../..")
+
+[node name="Ceiling2u5" parent="Interior/Ceiling" instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3.9, 1 )
+skeleton = NodePath("../..")
+
+[node name="Ceiling2u6" parent="Interior/Ceiling" instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3.9, 3 )
+skeleton = NodePath("../..")
+
 [node name="TicketBar" parent="Interior" instance=ExtResource( 25 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.25, 0 )
+recipes = [ ExtResource( 31 ), ExtResource( 30 ), ExtResource( 34 ), ExtResource( 33 ), ExtResource( 36 ), ExtResource( 32 ), ExtResource( 35 ), ExtResource( 33 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 32 ), ExtResource( 32 ) ]
+
+[node name="WallDoor2u" parent="Interior" instance=ExtResource( 27 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.09, 0, 1 )
+
+[node name="OrderTray" parent="Interior" instance=ExtResource( 28 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34, 1.13, -0.49 )
+tickets = NodePath("../TicketBar")
 
 [node name="Corner2u" parent="Interior" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1 )
@@ -85,9 +139,6 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, 
 [node name="Wall2u" parent="Interior" instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 2, 0, 1 )
 
-[node name="Wall2u2" parent="Interior" instance=ExtResource( 9 )]
-transform = Transform( 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, -2, 0, 1 )
-
 [node name="Corner2u5" parent="Interior" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -1 )
 
@@ -102,9 +153,6 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 2, 
 
 [node name="Wall2u3" parent="Interior" instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 2, 2, 1 )
-
-[node name="Wall2u4" parent="Interior" instance=ExtResource( 9 )]
-transform = Transform( 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, -3.82137e-15, 8.74228e-08, -1, -2, 2, 1 )
 
 [node name="Floor2u" parent="Interior" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1 )
@@ -163,6 +211,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -1 )
 
 [node name="Bell" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.14, 0.5 )
+order_tray_path = NodePath("../Interior/OrderTray")
 
 [node name="Cabinet1u" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5 )

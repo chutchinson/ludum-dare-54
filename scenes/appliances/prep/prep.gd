@@ -18,12 +18,20 @@ func inspect(chef: Chef):
 	elif _can_take_meal(chef):
 		Game.inspect('Pickup Order')
 	else: 
-		Game.inspect('')
+		if not _occupied: Game.inspect('(Plate required)')
+		elif _order != null and not _has_ingredient(BOTTOM_BUN): Game.inspect('(Place bottom bun to start)')
+		elif _order != null: 
+			if _is_order_complete(): Game.inspect('(Order is complete)')
+			else: Game.inspect('(Place ingredients)')
+		else: Game.inspect('')
 		
 func activate(chef: Chef):
 	if _can_place_plate(chef): _place_plate(chef)
 	elif _can_place_ingredient(chef): _place_ingredient(chef)
 	elif _can_take_meal(chef): _take_meal(chef)
+	
+func _is_order_complete() -> bool:
+	return _has_ingredient(TOP_BUN)
 	
 func _place_ingredient(chef: Chef):
 	var ingredient = chef.take_ingredient()
@@ -37,6 +45,8 @@ func _place_ingredient(chef: Chef):
 	_height += ingredient.height
 	
 func _take_meal(chef: Chef):
+	_order.ingredients = _ingredients.duplicate()
+	
 	_ingredients.clear()
 	_occupied = false
 	_height = 0.0
@@ -45,12 +55,12 @@ func _take_meal(chef: Chef):
 	chef.hold_order(_order)
 	
 func _place_plate(chef: Chef):
-	_order = Spatial.new()
-	var scene = chef.current_tool.scene.instance()
-	_order.add_child(scene)
+	
+	_order = chef.current_tool.scene.instance()
 	_order_pos.add_child(_order)
 	_occupied = true
 	chef.current_tool = null
+	$"../SfxDrop".play()
 
 func _has_ingredient(ingredient: Ingredient) -> bool:
 	for x in _ingredients:
@@ -71,14 +81,10 @@ func _can_place_ingredient(chef: Chef) -> bool:
 	var count = 0
 	
 	for x in _ingredients:
-		if chef.ingredient == x:
-			count += 1
-		if chef.ingredient.is_only_allowed_once() and count > 1:
-			print('count %d' % count)
-			return false
-			
-	return true
+		if chef.ingredient == x: count += 1
 	
+	if chef.ingredient.is_only_allowed_once() and count > 0: return false
+	else: return true
 
 func _can_place_plate(chef: Chef):
 	if _occupied: return false

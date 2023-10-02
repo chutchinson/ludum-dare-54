@@ -5,11 +5,10 @@ export var gravity := -10.0
 export var speed := 5.0
 export var look_sensitivity = 0.002
 
+onready var _is_web = OS.has_feature('web')
+
 var moving := false
 
-#onready var _hand = $Gimbal/Camera/RightHand
-#onready var _item_pos = $Gimbal/Camera/RightHand/ItemPos
-#onready var _tool_pos = $Gimbal/Camera/RightHand/ToolPos
 onready var _hand = $Gimbal/Camera/RightHand
 onready var _item_pos = $Gimbal/Camera/RightHand/ItemPos
 onready var _tool_pos = $Gimbal/Camera/RightHand/ToolPos
@@ -50,6 +49,7 @@ func is_holding_ingredient() -> bool:
 	return _ingredient != null
 
 func take_ingredient() -> Ingredient:
+	$SfxGrab.play(0.0)
 	var temp = _ingredient
 	for child in _item_pos.get_children():
 		child.queue_free()
@@ -66,16 +66,19 @@ func _set_hand(scene: PackedScene) -> Node:
 	_tool_pos.add_child(node)
 	return node
 	
-func take_order():
-	if not _order: return
-	_order.queue_free()
+func take_order() -> Spatial:
+	if not _order: return null
+	var node = _order
+	_order.get_parent().remove_child(_order)
 	_order = null
+	return node
 	
 func hold_order(order: Spatial):
 	_item_pos.add_child(order)
 	_order = order
 
 func hold_ingredient(ingredient: Ingredient):
+	$SfxGrab.play(0.0)
 	for child in _item_pos.get_children():
 		child.queue_free()
 	var node = ingredient.scene.instance()
@@ -85,6 +88,8 @@ func hold_ingredient(ingredient: Ingredient):
 func _ready():
 	if not OS.has_feature('web'):
 		_capture()
+	else:
+		_captured = true
 	pass
 
 func _capture():
@@ -103,8 +108,9 @@ func _input(ev):
 		if ev.is_pressed() and ev.button_index == BUTTON_LEFT:
 			_capture()
 	if ev is InputEventMouseMotion and _captured:
-		rotate_y(-ev.relative.x * look_sensitivity)
-		_gimbal.global_rotation.x -= ev.relative.y * look_sensitivity
+		var sensitivity = look_sensitivity if not _is_web else look_sensitivity * 0.5
+		rotate_y(-ev.relative.x * sensitivity)
+		_gimbal.global_rotation.x -= ev.relative.y * sensitivity
 		_gimbal.global_rotation.x = clamp(_gimbal.global_rotation.x, deg2rad(-90.0), deg2rad(90.0))
 		
 func _check_raycast():
@@ -134,10 +140,13 @@ func _process(delta):
 	var dir = input.normalized()
 	
 	if abs(dir.length_squared()) > 0.0:
+		if not $SfxStep.playing:
+			$SfxStep.playing = true
 		moving = true
 		_velocity.x = dir.x * speed
 		_velocity.z = dir.z * speed
 	else:
+		$SfxStep.playing = false
 		moving = false
 		_velocity.x = 0.0
 		_velocity.z = 0.0

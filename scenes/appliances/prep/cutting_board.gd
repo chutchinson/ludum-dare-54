@@ -37,6 +37,8 @@ func _prep():
 	for child in _start_pos.get_children():
 		child.queue_free()
 	
+	$"../SfxKnife".play(0.0)
+	
 	for idx in range(0, 3):
 		var ingredient_prepared = _ingredient.ingredient_prepared as Ingredient
 		var node = ingredient_prepared.scene.instance()

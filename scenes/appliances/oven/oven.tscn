@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/meshes/env_app_oven_knob.tres" type="ArrayMesh" id=1]
 [ext_resource path="res://assets/meshes/env_app_oven_door.tres" type="ArrayMesh" id=2]
@@ -7,12 +7,17 @@
 [ext_resource path="res://assets/meshes/env_app_oven_vent.tres" type="ArrayMesh" id=5]
 [ext_resource path="res://scenes/appliances/oven/oven.gd" type="Script" id=6]
 [ext_resource path="res://scenes/appliances/oven/griddle_zone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/sfx/sfx_spatula.ogg" type="AudioStream" id=8]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.45, 0.54, 0.45 )
 
 [node name="Oven" type="StaticBody"]
 script = ExtResource( 6 )
+
+[node name="SfxPickup" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 8 )
+bus = "Sfx"
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0 )

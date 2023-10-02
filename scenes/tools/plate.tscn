@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/meshes/env_app_plate_lg.tres" type="ArrayMesh" id=1]
+[ext_resource path="res://scenes/tools/order.gd" type="Script" id=2]
 
 [node name="Plate" type="MeshInstance"]
 mesh = ExtResource( 1 )
+script = ExtResource( 2 )

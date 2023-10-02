@@ -18,6 +18,7 @@ func activate(chef: Chef):
 		'spatula': _spatula.return_tool()
 		
 	chef.current_tool = null
+	$SfxPlace.play()
 	
 func _can_place_tool(chef: Chef) -> bool:
 	return chef.is_holding_tool('knife') or chef.is_holding_tool('spatula')

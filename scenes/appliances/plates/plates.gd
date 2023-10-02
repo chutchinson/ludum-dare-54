@@ -31,10 +31,12 @@ func _update():
 	
 func _return(chef: Chef):
 	chef.current_tool = null
+	$SfxDrop.play()
 	#count += 1
 	#_update()
 	
 func _take(chef: Chef):
 	chef.current_tool = PLATE
+	$SfxTake.play()
 	#count = max(count - 1, 0)
 	#_update()

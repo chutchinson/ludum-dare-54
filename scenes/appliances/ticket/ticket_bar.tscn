@@ -13,10 +13,10 @@ script = ExtResource( 2 )
 recipes = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ]
 
 [node name="Ticket1" type="Position3D" parent="."]
-transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.207412, 0.549659, -0.5 )
+transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.207412, 0.549659, -0.545 )
 
 [node name="Ticket2" type="Position3D" parent="."]
-transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.207412, 0.549659, 0 )
+transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.207412, 0.549659, -0.045 )
 
 [node name="Ticket3" type="Position3D" parent="."]
-transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.207412, 0.549659, 0.5 )
+transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.207412, 0.549659, 0.455 )

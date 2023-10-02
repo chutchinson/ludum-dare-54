@@ -2,6 +2,7 @@ extends Control
 
 onready var action_label: Label = $CenterContainer/ActionLabel
 onready var time_label: Label = $MarginContainer/TimeLabel
+onready var score_label: Label = $MarginContainer2/ScoreLabel
 
 const WARNING_THRESHOLD := 15.0
 
@@ -12,9 +13,13 @@ var _tween: SceneTreeTween
 
 func _ready():
 	Game.connect('inspected', self, '_on_inspection')
+	Game.connect('score', self, '_on_score')
 	action_label.text = ''
 	action_label.modulate.a = 0.0
 	pass
+	
+func _on_score(score: int):
+	score_label.text = str(score)
 
 func _on_inspection(text: String):
 	if _tween != null:
@@ -46,6 +51,8 @@ func _process(delta):
 	
 	if time <= WARNING_THRESHOLD and not warning:
 		_begin_warning()
+	if time <= 0:
+		Game.game_over()
 		
 func _begin_warning():
 	warning = true
