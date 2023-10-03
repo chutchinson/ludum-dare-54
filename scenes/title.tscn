@@ -113,6 +113,7 @@ fill_from = Vector2( 0.00505051, 1 )
 fill_to = Vector2( 0.00505051, 0 )
 
 [sub_resource type="SpatialMaterial" id=4]
+flags_albedo_tex_force_srgb = true
 flags_do_not_receive_shadows = true
 albedo_texture = SubResource( 3 )
 
@@ -132,7 +133,7 @@ anims/RESET = SubResource( 7 )
 anims/fade_out = SubResource( 8 )
 
 [node name="Background" type="MeshInstance" parent="."]
-transform = Transform( 3, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.01 )
+transform = Transform( 3, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.16, -0.01 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
@@ -142,32 +143,43 @@ mesh = ExtResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.85 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0.95 )
+keep_aspect = 0
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
 
-[node name="Label" type="Label" parent="Control"]
-margin_right = 40.0
-margin_bottom = 14.0
-
-[node name="TextureRect" type="TextureRect" parent="Control"]
-margin_left = 26.0
-margin_top = 244.0
-margin_right = 926.0
-margin_bottom = 544.0
-texture = ExtResource( 2 )
-
-[node name="Label2" type="Label" parent="Control"]
-anchor_top = 1.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -6.0
-margin_top = -73.0
-margin_right = -6.0
-margin_bottom = -16.0
+alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer"]
+margin_top = 140.0
+margin_right = 948.0
+margin_bottom = 408.0
+mouse_filter = 2
+custom_constants/margin_top = 0
+custom_constants/margin_bottom = -32
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/MarginContainer2"]
+margin_right = 948.0
+margin_bottom = 300.0
+grow_horizontal = 2
+texture = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer"]
+margin_top = 412.0
+margin_right = 948.0
+margin_bottom = 533.0
+mouse_filter = 2
+custom_constants/margin_bottom = 64
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer/MarginContainer"]
+margin_right = 948.0
+margin_bottom = 57.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 1

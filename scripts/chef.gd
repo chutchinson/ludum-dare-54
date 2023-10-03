@@ -3,7 +3,7 @@ class_name Chef
 
 export var gravity := -10.0
 export var speed := 5.0
-export var look_sensitivity = 0.002
+export var look_sensitivity = 0.15
 
 onready var _is_web = OS.has_feature('web')
 
@@ -90,7 +90,6 @@ func _ready():
 		_capture()
 	else:
 		_captured = true
-	pass
 
 func _capture():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -108,9 +107,11 @@ func _input(ev):
 		if ev.is_pressed() and ev.button_index == BUTTON_LEFT:
 			_capture()
 	if ev is InputEventMouseMotion and _captured:
-		var sensitivity = look_sensitivity if not _is_web else look_sensitivity * 0.5
-		rotate_y(-ev.relative.x * sensitivity)
-		_gimbal.global_rotation.x -= ev.relative.y * sensitivity
+		var sensitivity = look_sensitivity
+		var dx = clamp(ev.relative.x * look_sensitivity, -8.0, 8.0)
+		var dy = clamp(ev.relative.y * look_sensitivity, -8.0, 8.0)
+		rotate_y(deg2rad(-dx))
+		_gimbal.global_rotation.x -= deg2rad(dy)
 		_gimbal.global_rotation.x = clamp(_gimbal.global_rotation.x, deg2rad(-90.0), deg2rad(90.0))
 		
 func _check_raycast():
